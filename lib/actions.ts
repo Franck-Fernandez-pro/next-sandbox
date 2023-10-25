@@ -14,9 +14,7 @@ import { ProjectForm } from '@/common.types';
 
 const isProduction = process.env.NODE_ENV === 'production';
 const apiUrl = process.env.NEXT_PUBLIC_GRAFBASE_API_URL || '';
-console.log('apiUrl:', apiUrl);
 const apiKey = process.env.NEXT_PUBLIC_GRAFBASE_API_KEY || '';
-console.log('apiKey:', apiKey);
 const serverUrl = isProduction
   ? process.env.NEXT_PUBLIC_SERVER_URL
   : 'http://localhost:3000';
@@ -98,7 +96,6 @@ export const updateProject = async (
   }
 
   let updatedForm = { ...form };
-
   const isUploadingNewImage = isBase64DataURL(form.image);
 
   if (isUploadingNewImage) {
