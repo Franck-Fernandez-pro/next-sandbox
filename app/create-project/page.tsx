@@ -10,11 +10,11 @@ const CreateProject = async () => {
   if (!session?.user) redirect('/');
 
   return (
-    <Modal>
+    <div className="flex justify-start items-center flex-col  lg:mx-40 mx-8 mt-14 mb-72">
       <h3 className="modal-head-text">Create a New Project</h3>
 
       <ProjectForm type="create" session={session} />
-    </Modal>
+    </div>
   );
 };
 

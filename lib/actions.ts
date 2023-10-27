@@ -46,7 +46,7 @@ export const uploadImage = async (imagePath: string) => {
 
 export const makeGraphQLRequest = async (query: string, variables = {}) => {
   try {
-    const token = await fetchToken();
+    client.setHeader('x-api-key', apiKey);
     return await client.request(query, variables);
   } catch (err) {
     throw err;
@@ -56,18 +56,13 @@ export const makeGraphQLRequest = async (query: string, variables = {}) => {
 export const fetchAllProjects = (
   category?: string | null,
   endcursor?: string | null
-) => {
-  client.setHeader('x-api-key', apiKey);
-
-  return makeGraphQLRequest(projectsQuery, { category, endcursor });
-};
+) => makeGraphQLRequest(projectsQuery, { category, endcursor });
 
 export const createNewProject = async (
   form: ProjectForm,
   creatorId: string,
   token: string
 ) => {
-  console.log('form:', form);
   const imageUrl = await uploadImage(form.image);
 
   if (imageUrl.url) {
@@ -123,14 +118,10 @@ export const deleteProject = (id: string, token: string) => {
   return makeGraphQLRequest(deleteProjectMutation, { id });
 };
 
-export const getProjectDetails = (id: string) => {
-  client.setHeader('x-api-key', apiKey);
-  return makeGraphQLRequest(getProjectByIdQuery, { id });
-};
+export const getProjectDetails = (id: string) =>
+  makeGraphQLRequest(getProjectByIdQuery, { id });
 
 export const createUser = (name: string, email: string, avatarUrl: string) => {
-  client.setHeader('x-api-key', apiKey);
-
   const variables = {
     input: {
       name: name,
@@ -142,12 +133,8 @@ export const createUser = (name: string, email: string, avatarUrl: string) => {
   return makeGraphQLRequest(createUserMutation, variables);
 };
 
-export const getUserProjects = (id: string, last?: number) => {
-  client.setHeader('x-api-key', apiKey);
-  return makeGraphQLRequest(getProjectsOfUserQuery, { id, last });
-};
+export const getUserProjects = (id: string, last?: number) =>
+  makeGraphQLRequest(getProjectsOfUserQuery, { id, last });
 
-export const getUser = (email: string) => {
-  client.setHeader('x-api-key', apiKey);
-  return makeGraphQLRequest(getUserQuery, { email });
-};
+export const getUser = (email: string) =>
+  makeGraphQLRequest(getUserQuery, { email });
