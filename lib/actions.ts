@@ -19,7 +19,11 @@ const serverUrl = isProduction
   ? process.env.NEXT_PUBLIC_SERVER_URL
   : 'http://localhost:3000';
 
-export const client = new GraphQLClient(apiUrl);
+export const client = new GraphQLClient(apiUrl, {
+  headers: {
+    'x-api-key': apiKey,
+  },
+});
 
 export const fetchToken = async () => {
   try {
@@ -46,7 +50,6 @@ export const uploadImage = async (imagePath: string) => {
 
 export const makeGraphQLRequest = async (query: string, variables = {}) => {
   try {
-    client.setHeader('x-api-key', apiKey);
     return await client.request(query, variables);
   } catch (err) {
     throw err;
@@ -55,8 +58,8 @@ export const makeGraphQLRequest = async (query: string, variables = {}) => {
 
 export const fetchAllProjects = (
   category?: string | null,
-  endcursor?: string | null
-) => makeGraphQLRequest(projectsQuery, { category, endcursor });
+  endCursor?: string | null
+) => makeGraphQLRequest(projectsQuery, { category, endCursor });
 
 export const createNewProject = async (
   form: ProjectForm,

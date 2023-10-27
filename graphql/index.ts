@@ -1,3 +1,5 @@
+import { gql } from 'graphql-request';
+
 export const createProjectMutation = `
 	mutation CreateProject($input: ProjectCreateInput!) {
 		projectCreate(input: $input) {
@@ -54,9 +56,9 @@ export const createUserMutation = `
 	}
 `;
 
-export const projectsQuery = `
-  query getProjects($category: String, $endcursor: String) {
-    projectSearch(first: 8, after: $endcursor, filter: {category: {eq: $category}}) {
+export const projectsQuery = gql`
+  query getProjects($categories: [String!]) {
+    projectSearch(first: 8, filter: { category: { in: $categories } }) {
       pageInfo {
         hasNextPage
         hasPreviousPage

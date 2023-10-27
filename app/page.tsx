@@ -1,6 +1,9 @@
 import { ProjectInterface } from '@/common.types';
+import Categories from '@/components/Categories';
 import ProjectCard from '@/components/ProjectCard';
-import { fetchAllProjects, makeGraphQLRequest } from '@/lib/actions';
+import { categoryFilters } from '@/constant';
+import { projectsQuery } from '@/graphql';
+import { client } from '@/lib/actions';
 
 type ProjectSearch = {
   projectSearch: {
@@ -14,45 +17,23 @@ type ProjectSearch = {
   };
 };
 
-const query = `
-  query getProjects {
-    projectSearch(
-      first: 10
-    ) {
-      pageInfo {
-        hasNextPage
-        hasPreviousPage
-        startCursor
-        endCursor
-      }
-      edges {
-        node {
-          title
-          githubUrl
-          description
-          liveSiteUrl
-          id
-          image
-          category
-          createdBy {
-            id
-            email
-            name
-            avatarUrl
-          }
-        }
-      }
-    }
-  }
-`;
-
-export default async function Home() {
+export default async function Home({
+  searchParams: { category },
+}: {
+  searchParams: {
+    category?: string | null;
+  };
+}) {
   const {
     projectSearch: { edges: projects },
-  } = (await makeGraphQLRequest(query)) as ProjectSearch;
+  } = (await client.request(projectsQuery, {
+    categories: category || categoryFilters,
+  })) as ProjectSearch;
 
   return (
     <section className="flex-start flex-col paddings mb-16">
+      <Categories />
+
       {projects.length > 0 ? (
         <section className="projects-grid">
           {projects.map(({ node }) => (
