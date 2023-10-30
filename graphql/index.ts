@@ -1,38 +1,38 @@
 import { gql } from 'graphql-request';
 
-export const createProjectMutation = `
-	mutation CreateProject($input: ProjectCreateInput!) {
-		projectCreate(input: $input) {
-			project {
-				id
-				title
-				description
-				createdBy {
-					email
-					name
-				}
-			}
-		}
-	}
+export const createProjectMutation = gql`
+  mutation CreateProject($input: ProjectCreateInput!) {
+    projectCreate(input: $input) {
+      project {
+        id
+        title
+        description
+        createdBy {
+          email
+          name
+        }
+      }
+    }
+  }
 `;
 
-export const updateProjectMutation = `
-	mutation UpdateProject($id: ID!, $input: ProjectUpdateInput!) {
-		projectUpdate(by: { id: $id }, input: $input) {
-			project {
-				id
-				title
-				description
-				createdBy {
-					email
-					name
-				}
-			}
-		}
-	}
+export const updateProjectMutation = gql`
+  mutation UpdateProject($id: ID!, $input: ProjectUpdateInput!) {
+    projectUpdate(by: { id: $id }, input: $input) {
+      project {
+        id
+        title
+        description
+        createdBy {
+          email
+          name
+        }
+      }
+    }
+  }
 `;
 
-export const deleteProjectMutation = `
+export const deleteProjectMutation = gql`
   mutation DeleteProject($id: ID!) {
     projectDelete(by: { id: $id }) {
       deletedId
@@ -40,25 +40,29 @@ export const deleteProjectMutation = `
   }
 `;
 
-export const createUserMutation = `
-	mutation CreateUser($input: UserCreateInput!) {
-		userCreate(input: $input) {
-			user {
-				name
-				email
-				avatarUrl
-				description
-				githubUrl
-				linkedinUrl
-				id
-			}
-		}
-	}
+export const createUserMutation = gql`
+  mutation CreateUser($input: UserCreateInput!) {
+    userCreate(input: $input) {
+      user {
+        name
+        email
+        avatarUrl
+        description
+        githubUrl
+        linkedinUrl
+        id
+      }
+    }
+  }
 `;
 
 export const projectsQuery = gql`
-  query getProjects($categories: [String!]) {
-    projectSearch(first: 8, filter: { category: { in: $categories } }) {
+  query getProjects($categories: [String!], $cursor: String) {
+    projectSearch(
+      first: 8
+      after: $cursor
+      filter: { category: { in: $categories } }
+    ) {
       pageInfo {
         hasNextPage
         hasPreviousPage
@@ -86,7 +90,7 @@ export const projectsQuery = gql`
   }
 `;
 
-export const getProjectByIdQuery = `
+export const getProjectByIdQuery = gql`
   query GetProjectById($id: ID!) {
     project(by: { id: $id }) {
       id
@@ -106,7 +110,7 @@ export const getProjectByIdQuery = `
   }
 `;
 
-export const getUserQuery = `
+export const getUserQuery = gql`
   query GetUser($email: String!) {
     user(by: { email: $email }) {
       id
@@ -120,7 +124,7 @@ export const getUserQuery = `
   }
 `;
 
-export const getProjectsOfUserQuery = `
+export const getProjectsOfUserQuery = gql`
   query getUserProjects($id: ID!, $last: Int = 4) {
     user(by: { id: $id }) {
       id

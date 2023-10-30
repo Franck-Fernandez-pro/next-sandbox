@@ -1,11 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['lh3.googleusercontent.com', 'res.cloudinary.com', 'task.com', "google.com"],
+    domains: [
+      'lh3.googleusercontent.com',
+      'res.cloudinary.com',
+      'task.com',
+      'google.com',
+    ],
   },
   experimental: {
     serverComponentsExternalPackages: ['cloudinary', 'graphql-request'],
-    serverActions: true,
   },
   eslint: {
     // Warning: This allows production builds to successfully complete even if
