@@ -4,30 +4,32 @@ import LatestInvoices from '@/app/ui/dashboard/latest-invoices';
 import { lusitana } from '@/app/ui/fonts';
 import { fetchCardData, fetchLatestInvoices, fetchRevenue } from '../lib/data';
 
-export default async function Page() {
-  // const revenue = await fetchRevenue();
-  // const latestInvoices = await fetchLatestInvoices();
-  // const {
-  //   numberOfCustomers,
-  //   numberOfInvoices,
-  //   totalPaidInvoices,
-  //   totalPendingInvoices,
-  // } = await fetchCardData();
+export const dynamic = 'force-dynamic';
 
-  const [
-    revenue,
-    latestInvoices,
-    {
-      numberOfCustomers,
-      numberOfInvoices,
-      totalPaidInvoices,
-      totalPendingInvoices,
-    },
-  ] = await Promise.all([
-    fetchRevenue(),
-    fetchLatestInvoices(),
-    fetchCardData(),
-  ]);
+export default async function Page() {
+  const revenue = await fetchRevenue();
+  const latestInvoices = await fetchLatestInvoices();
+  const {
+    numberOfCustomers,
+    numberOfInvoices,
+    totalPaidInvoices,
+    totalPendingInvoices,
+  } = await fetchCardData();
+
+  // const [
+  //   revenue,
+  //   latestInvoices,
+  //   {
+  //     numberOfCustomers,
+  //     numberOfInvoices,
+  //     totalPaidInvoices,
+  //     totalPendingInvoices,
+  //   },
+  // ] = await Promise.all([
+  //   fetchRevenue(),
+  //   fetchLatestInvoices(),
+  //   fetchCardData(),
+  // ]);
 
   return (
     <main>
