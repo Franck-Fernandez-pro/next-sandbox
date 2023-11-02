@@ -1,6 +1,7 @@
 import Form from '@/components/invoices/edit-form';
 import Breadcrumbs from '@/components/invoices/breadcrumbs';
 import { fetchInvoiceById, fetchCustomers } from '@/lib/data';
+import { notFound } from 'next/navigation';
 
 export default async function Page({
   params: { id },
@@ -12,7 +13,7 @@ export default async function Page({
     fetchCustomers(),
   ]);
 
-  return (
+  return invoice ? (
     <main>
       <Breadcrumbs
         breadcrumbs={[
@@ -24,7 +25,10 @@ export default async function Page({
           },
         ]}
       />
-      {invoice && <Form invoice={invoice} customers={customers} />}
+      {/* @ts-ignore */}
+      <Form invoice={invoice} customers={customers} />
     </main>
+  ) : (
+    notFound()
   );
 }
