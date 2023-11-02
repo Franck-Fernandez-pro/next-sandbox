@@ -9,6 +9,11 @@ import {
   LatestInvoicesSkeleton,
   RevenueChartSkeleton,
 } from '@/components/skeletons';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Dashboard',
+};
 
 export const dynamic = 'force-dynamic';
 
