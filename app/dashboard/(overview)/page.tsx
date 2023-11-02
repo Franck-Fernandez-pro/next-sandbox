@@ -1,14 +1,14 @@
-import Cards, { Card } from '@/app/ui/dashboard/cards';
-import RevenueChart from '@/app/ui/dashboard/revenue-chart';
-import LatestInvoices from '@/app/ui/dashboard/latest-invoices';
-import { lusitana } from '@/app/ui/fonts';
+import Cards, { Card } from '@/components/dashboard/cards';
+import RevenueChart from '@/components/dashboard/revenue-chart';
+import LatestInvoices from '@/components/dashboard/latest-invoices';
+import { lusitana } from '@/components/fonts';
 import { fetchCardData } from '../../../lib/data';
 import { Suspense } from 'react';
 import {
   CardsSkeleton,
   LatestInvoicesSkeleton,
   RevenueChartSkeleton,
-} from '@/app/ui/skeletons';
+} from '@/components/skeletons';
 
 export const dynamic = 'force-dynamic';
 
