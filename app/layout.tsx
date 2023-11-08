@@ -16,7 +16,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="light">
-      <body className={`${roboto_mono.className} bg-bg-color text-text-color`}>
+      <body
+        className={`${roboto_mono.className} bg-bg-color text-text-color py-20`}
+      >
         {children}
       </body>
     </html>
