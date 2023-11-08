@@ -1,8 +1,7 @@
 import Image from 'next/image';
 import { Crypto } from '@/type';
-
-const getCurrencyValue = (v: number) =>
-  `$${new Intl.NumberFormat('en-US').format(v)}`;
+import Link from 'next/link';
+import { getCurrencyValue } from '@/helpers';
 
 export default function CryptoList({
   cryptos,
@@ -17,9 +16,10 @@ export default function CryptoList({
       : cryptos.filter(({ name }) => name.includes(filter));
 
   return (
-    <ul className="cursor-pointer max-h-[70vh] overflow-y-scroll select-none">
+    <ul className="max-h-[70vh] overflow-y-scroll select-none">
       {filteredCryptos.map(({ id, name, quote: { USD } }, idx) => (
-        <li
+        <Link
+          href={`/${id}`}
           className="text-sub-color text-sm py-2 px-4 hover:bg-text-color hover:text-bg-color flex items-center justify-between"
           key={idx}
         >
@@ -33,7 +33,7 @@ export default function CryptoList({
             {name}
           </div>
           <div>{getCurrencyValue(USD.price)}</div>
-        </li>
+        </Link>
       ))}
     </ul>
   );
