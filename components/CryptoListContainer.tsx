@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { FaSearch } from 'react-icons/fa';
+import Search from './Search';
 
 export default function CryptoListContainer({
   children,
@@ -12,10 +13,8 @@ export default function CryptoListContainer({
         <div className="text-sub-color mx-[1px] my-4">
           <FaSearch />
         </div>
-        <input
-          className="caret-main-color placeholder:text-sub-color bg-transparent border-none focus:border-none focus:ring-0 w-full p-4 outline-none"
-          placeholder="Type to search"
-        />
+
+        <Search />
       </div>
 
       {children}
