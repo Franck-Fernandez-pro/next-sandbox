@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import { Roboto_Mono } from 'next/font/google';
+import Providers from '@/components/Providers';
+import Navbar from '@/components/Navbar';
 import './globals.css';
 
 const roboto_mono = Roboto_Mono({ subsets: ['latin'] });
@@ -19,7 +21,10 @@ export default function RootLayout({
       <body
         className={`${roboto_mono.className} bg-bg-color text-text-color py-20 px-9`}
       >
-        {children}
+        <Providers>
+          <Navbar />
+          {children}
+        </Providers>
       </body>
     </html>
   );
