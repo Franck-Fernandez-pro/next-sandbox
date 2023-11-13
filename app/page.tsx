@@ -1,4 +1,4 @@
-import { axios } from '@/axios';
+import { axiosCoinMarket } from '@/axios';
 import CryptoList from '@/components/CryptoList';
 import CryptoListContainer from '@/components/CryptoListContainer';
 import { GetCryptosRequest } from '@/type';
@@ -12,7 +12,7 @@ export default async function Home({
 }) {
   const {
     data: { data },
-  } = await axios.get<GetCryptosRequest>(
+  } = await axiosCoinMarket.get<GetCryptosRequest>(
     'v1/cryptocurrency/listings/latest?convert=USD'
   );
   const query = searchParams?.query || '';

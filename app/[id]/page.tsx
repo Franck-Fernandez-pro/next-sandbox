@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { FaCode, FaGlobe } from 'react-icons/fa';
 import { BiSolidBook } from 'react-icons/bi';
-import { axios } from '@/axios';
+import { axiosCoinMarket } from '@/axios';
 import { getCurrencyValue } from '@/helpers';
 import { GetCryptosMetadataRequest, GetCryptosRequest } from '@/type';
 import Link from 'next/link';
@@ -23,8 +23,8 @@ export default async function Page({
       data: { data: metadata },
     },
   ] = await Promise.all([
-    axios.get<GetCryptosRequest>(`v2/cryptocurrency/quotes/latest?id=${id}`),
-    axios.get<GetCryptosMetadataRequest>(`v2/cryptocurrency/info?id=${id}`),
+    axiosCoinMarket.get<GetCryptosRequest>(`v2/cryptocurrency/quotes/latest?id=${id}`),
+    axiosCoinMarket.get<GetCryptosMetadataRequest>(`v2/cryptocurrency/info?id=${id}`),
   ]);
 
   const {
