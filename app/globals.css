@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  a {
+    @apply text-main-color;
+  }
+
+  a:hover {
+    @apply underline;
+  }
+}
