@@ -1,3 +1,5 @@
+import { Hex } from 'viem';
+
 export type GetCryptosRequest = {
   status: Status;
   data: Crypto[];
@@ -99,4 +101,70 @@ export type Metadata = {
   self_reported_tags: null;
   self_reported_market_cap: null;
   infinite_supply: boolean;
+};
+
+// ---------------------------------------------------
+// -                    INFURA
+// ---------------------------------------------------
+export type GetBlockByNumberRequest = {
+  jsonrpc: string;
+  id: number;
+  result: Block;
+};
+
+export type Block = {
+  baseFeePerGas: string;
+  difficulty: string;
+  extraData: string;
+  gasLimit: string;
+  gasUsed: string;
+  hash: string;
+  logsBloom: string;
+  miner: string;
+  mixHash: string;
+  nonce: string;
+  number: Hex;
+  parentHash: string;
+  receiptsRoot: string;
+  sha3Uncles: string;
+  size: string;
+  stateRoot: string;
+  timestamp: Hex;
+  totalDifficulty: string;
+  transactions: Transaction[];
+  transactionsRoot: string;
+  uncles: any[];
+  withdrawals: {
+    address: string;
+    amount: string;
+    index: string;
+    validatorIndex: string;
+  }[];
+  withdrawalsRoot: string;
+};
+
+export type Transaction = {
+  accessList?: {
+    address: string;
+    storageKeys: string[];
+  }[];
+  blockHash: string;
+  blockNumber: string;
+  chainId?: string;
+  from: string;
+  gas: string;
+  gasPrice: string;
+  hash: string;
+  input: string;
+  maxFeePerGas?: string;
+  maxPriorityFeePerGas?: string;
+  nonce: string;
+  r: string;
+  s: string;
+  to: string;
+  transactionIndex: string;
+  type: string;
+  v: string;
+  value: string;
+  yParity?: string;
 };
