@@ -53,3 +53,21 @@ export function BlockRow({
     </div>
   );
 }
+
+export function RowSkeleton() {
+  return (
+    <div className="flex justify-between p-4 text-sm items-center border-b border-sub-color last:border-0 animate-pulse">
+      <div className="flex items-center gap-3">
+        <div className="h-5 w-5 bg-slate-200 rounded" />
+        <div className="flex flex-col gap-2">
+          <div className="h-2 w-32 bg-slate-200 rounded" />
+          <div className="h-2 w-28 bg-slate-200 rounded" />
+        </div>
+      </div>
+
+      <div>
+        <div className="h-2 w-20 bg-slate-200 rounded" />
+      </div>
+    </div>
+  );
+}

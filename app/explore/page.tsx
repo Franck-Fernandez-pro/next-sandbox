@@ -1,4 +1,4 @@
-import Row, { BlockRow } from '@/components/Row';
+import Row, { BlockRow, RowSkeleton } from '@/components/Row';
 import { hexMinus } from '@/helpers';
 import { getBlockByNumber } from '@/lib';
 import { Suspense } from 'react';
@@ -17,8 +17,12 @@ export default async function Page() {
           <h2 className="p-4 border-b border-sub-color">Latest Blocks</h2>
           <BlockRow block={{ hash, number, transactions, timestamp }} />
           {['', '', '', '', ''].map((_, idx) => (
-            <Suspense fallback="Loading..." key={idx}>
-              <Row type="block" blockNumber={hexMinus(number, idx + 1)} />
+            <Suspense fallback={<RowSkeleton />} key={idx}>
+              <Row
+                key={idx}
+                type="block"
+                blockNumber={hexMinus(number, idx + 1)}
+              />
             </Suspense>
           ))}
         </section>
