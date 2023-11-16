@@ -75,7 +75,7 @@ export function TransactionRow({
         <div className="flex flex-col">
           <Link
             className="w-fit max-w-[8rem] truncate"
-            href={`/transaction/${hash}`}
+            href={`/address/${hash}`}
           >
             {hash}
           </Link>
