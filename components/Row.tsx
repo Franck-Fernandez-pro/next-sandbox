@@ -1,9 +1,10 @@
 import { getBlockByNumber } from '@/lib';
-import { Block } from '@/type';
+import { Block, Transaction } from '@/type';
 import Link from 'next/link';
 import { BiCube } from 'react-icons/bi';
-import { Hex, hexToNumber } from 'viem';
+import { Hex, formatEther, hexToBigInt, hexToNumber } from 'viem';
 import { dayjs } from '@/helpers';
+import { FaMemory } from 'react-icons/fa';
 
 export default async function Row({
   type,
@@ -49,6 +50,64 @@ export function BlockRow({
 
       <div>
         <div>{transactions.length} txns</div>
+      </div>
+    </div>
+  );
+}
+
+export function TransactionRow({
+  hash,
+  from,
+  to,
+  timestamp,
+  value,
+}: {
+  hash: Transaction['hash'];
+  from: Transaction['from'];
+  to: Transaction['to'];
+  timestamp: Block['timestamp'];
+  value: Transaction['value'];
+}) {
+  return (
+    <div className="flex justify-between p-4 text-sm items-center border-b border-sub-color last:border-0">
+      <div className="flex items-center gap-3">
+        <FaMemory className="h-5 w-5" />
+        <div className="flex flex-col">
+          <Link
+            className="w-fit max-w-[8rem] truncate"
+            href={`/transaction/${hash}`}
+          >
+            {hash}
+          </Link>
+          <span>{dayjs(hexToNumber(timestamp) * 1000).fromNow()}</span>
+        </div>
+      </div>
+
+      <div>
+        <div className="flex flex-wrap gap-1">
+          From{' '}
+          <Link
+            className="max-w-[8rem] truncate"
+            href={`/address/${from}`}
+            data-bs-toggle="tooltip"
+          >
+            {from}
+          </Link>
+        </div>
+        <div className="flex flex-wrap gap-1">
+          To{' '}
+          <Link
+            className="max-w-[8rem] truncate"
+            href={`/address/${to}`}
+            data-bs-toggle="tooltip"
+          >
+            {from}
+          </Link>
+        </div>
+      </div>
+
+      <div>
+        <div>{parseFloat(formatEther(hexToBigInt(value))).toFixed(5)} Eth</div>
       </div>
     </div>
   );
