@@ -1,3 +1,4 @@
+import ListWrapper from '@/components/ListWrapper';
 import Row, { BlockRow, RowSkeleton, TransactionRow } from '@/components/Row';
 import { hexMinus } from '@/helpers';
 import { getBlockByNumber } from '@/lib';
@@ -13,8 +14,7 @@ export default async function Page() {
   return (
     <main>
       <div className="grid lg:grid-cols-2 grid-cols-1 gap-10">
-        <section className="w-full border rounded-lg border-sub-color h-fit">
-          <h2 className="p-4 border-b border-sub-color">Latest Blocks</h2>
+        <ListWrapper title="Latest Blocks">
           <BlockRow block={{ hash, number, transactions, timestamp }} />
           {['', '', '', '', ''].map((_, idx) => (
             <Suspense fallback={<RowSkeleton />} key={idx}>
@@ -25,10 +25,9 @@ export default async function Page() {
               />
             </Suspense>
           ))}
-        </section>
+        </ListWrapper>
 
-        <section className="w-full border rounded-lg border-sub-color h-fit">
-          <h2 className="p-4 border-b border-sub-color">Latest Transactions</h2>
+        <ListWrapper title="Latest Transactions">
           {transactions.slice(0, 6).map(({ hash, from, to, value }, idx) => (
             <TransactionRow
               key={idx}
@@ -39,7 +38,7 @@ export default async function Page() {
               timestamp={timestamp}
             />
           ))}
-        </section>
+        </ListWrapper>
       </div>
     </main>
   );
