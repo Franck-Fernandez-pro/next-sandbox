@@ -1,18 +1,29 @@
+import { getCurrencyValue } from '@/helpers';
+import { getQuotes } from '@/lib';
+import { Crypto } from '@/type';
 import { ReactNode } from 'react';
 import { BiCube } from 'react-icons/bi';
 import { FaEthereum, FaGlobe, FaServer } from 'react-icons/fa';
 import { FaGasPump, FaGauge } from 'react-icons/fa6';
 
-export default function EthData() {
+export default async function EthData() {
+  const {
+    data: {
+      1027: {
+        quote: { USD },
+      },
+    },
+  } = await getQuotes({ id: '1027' }); // ETH
+
   return (
     <section className="border w-fit mx-auto p-4 rounded-lg border-sub-color grid grid-cols-1 lg:grid-cols-3 lg:divide-x divide-y lg:divide-y-0 divide-sub-color [&>div]:grid [&>div]:grid-rows-2 [&>div]:divide-y [&>div]:divide-sub-color">
       <div>
         <Case icon={<FaEthereum />} title="ETHER PRICE">
-          $2000 @ 0.055133 BTC (+0.53%)
+          {getCurrencyValue(USD.price)} ({USD.percent_change_24h.toFixed(2)}%)
         </Case>
 
         <Case icon={<FaGlobe />} title="MKT CAP">
-          $244,412,573,538.00
+          {getCurrencyValue(USD.market_cap)}
         </Case>
       </div>
 
@@ -53,4 +64,36 @@ const Case = ({
       <span>{children}</span>
     </div>
   </div>
+);
+
+export const EthDataSkeleton = () => (
+  <section className="border w-[893.94px] h-[180px] mx-auto p-4 rounded-lg border-sub-color grid grid-cols-1 lg:grid-cols-3 lg:divide-x divide-y lg:divide-y-0 divide-sub-color [&>div]:grid [&>div]:grid-rows-2 [&>div]:divide-y [&>div]:divide-sub-color animate-pulse">
+    <div>
+      <Case icon={<FaEthereum />} title="ETHER PRICE">
+        <div className="h-2 w-32 bg-slate-200 rounded" />
+      </Case>
+
+      <Case icon={<FaGlobe />} title="MKT CAP">
+        <div className="h-2 w-28 bg-slate-200 rounded" />
+      </Case>
+    </div>
+
+    <div>
+      <Case icon={<FaServer />} title="TRANSACTIONS">
+        <div className="h-2 w-32 bg-slate-200 rounded" />
+      </Case>
+      <Case icon={<FaGasPump />} title="MED GAS PRICE">
+        <div className="h-2 w-28 bg-slate-200 rounded" />
+      </Case>
+    </div>
+
+    <div>
+      <Case icon={<FaGauge />} title="LAST FINALIZED BLOCK">
+        <div className="h-2 w-28 bg-slate-200 rounded" />
+      </Case>
+      <Case icon={<BiCube />} title="LAST SAFE BLOCK">
+        <div className="h-2 w-32 bg-slate-200 rounded" />
+      </Case>
+    </div>
+  </section>
 );

@@ -1,4 +1,4 @@
-import EthData from '@/components/EthData';
+import EthData, { EthDataSkeleton } from '@/components/EthData';
 import ListWrapper from '@/components/ListWrapper';
 import Row, { BlockRow, RowSkeleton, TransactionRow } from '@/components/Row';
 import { hexMinus } from '@/helpers';
@@ -14,7 +14,10 @@ export default async function Page() {
 
   return (
     <main>
-      <EthData />
+      <Suspense fallback={<EthDataSkeleton />}>
+        <EthData />
+      </Suspense>
+
       <div className="grid lg:grid-cols-2 grid-cols-1 gap-10 mt-10">
         <ListWrapper title="Latest Blocks">
           <BlockRow block={{ hash, number, transactions, timestamp }} />

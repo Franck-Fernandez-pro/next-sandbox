@@ -1,14 +1,13 @@
 import { Hex } from 'viem';
 
-export type GetCryptosRequest = {
+export type RequestStatus<T> = {
   status: Status;
-  data: Crypto[];
+  data: T;
 };
 
-export type GetCryptosMetadataRequest = {
-  status: Status;
-  data: { [key: string]: Metadata };
-};
+export type GetCryptosRequest = RequestStatus<Crypto[]>;
+export type QuotesRequest = RequestStatus<{ [key: string]: Crypto }>;
+export type InfoRequest = RequestStatus<{ [key: string]: Metadata }>;
 
 export type Crypto = {
   id: number;
