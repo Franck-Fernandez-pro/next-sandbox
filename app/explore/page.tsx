@@ -7,9 +7,7 @@ import { Suspense } from 'react';
 
 export default async function Page() {
   const {
-    data: {
-      result: { hash, number, transactions, timestamp },
-    },
+    result: { hash, number, transactions, timestamp },
   } = await getBlockByNumber('latest', true);
 
   return (

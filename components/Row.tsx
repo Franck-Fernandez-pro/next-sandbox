@@ -14,9 +14,7 @@ export default async function Row({
   blockNumber: Hex;
 }) {
   const {
-    data: {
-      result: { hash, number, transactions, timestamp },
-    },
+    result: { hash, number, transactions, timestamp },
   } = await getBlockByNumber(blockNumber);
 
   return (
@@ -41,7 +39,7 @@ export function BlockRow({
       <div className="flex items-center gap-3">
         <BiCube className="h-5 w-5" />
         <div className="flex flex-col">
-          <Link className="w-fit" href={`/block/${hash}`}>
+          <Link className="w-fit" href={`/explore/block/${hash}`}>
             {hexToNumber(number)}
           </Link>
           <span>{dayjs(hexToNumber(timestamp) * 1000).fromNow()}</span>
@@ -75,7 +73,7 @@ export function TransactionRow({
         <div className="flex flex-col">
           <Link
             className="w-fit max-w-[8rem] truncate"
-            href={`/address/${hash}`}
+            href={`/explore/address/${hash}`}
           >
             {hash}
           </Link>
@@ -88,7 +86,7 @@ export function TransactionRow({
           From{' '}
           <Link
             className="max-w-[8rem] truncate"
-            href={`/address/${from}`}
+            href={`/explore/address/${from}`}
             data-bs-toggle="tooltip"
           >
             {from}
@@ -98,7 +96,7 @@ export function TransactionRow({
           To{' '}
           <Link
             className="max-w-[8rem] truncate"
-            href={`/address/${to}`}
+            href={`/explore/address/${to}`}
             data-bs-toggle="tooltip"
           >
             {from}

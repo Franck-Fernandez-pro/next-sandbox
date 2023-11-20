@@ -1,5 +1,4 @@
 import { Hex } from 'viem';
-import { axiosInfura } from './axios';
 import {
   GetBlockByNumberRequest,
   QuotesRequest,
@@ -7,16 +6,33 @@ import {
   InfoRequest,
 } from './type';
 
-export const getBlockByNumber = async (
+// -------------------------------------------------------
+// -                   API - INFURA
+// -------------------------------------------------------
+const infuraHeaders = {
+  Accept: 'application/json',
+};
+
+export async function getBlockByNumber(
   blockNumber: Hex | 'latest',
   transaction = false
-) =>
-  await axiosInfura.post<GetBlockByNumberRequest>('', {
-    jsonrpc: '2.0',
-    id: 1,
-    method: 'eth_getBlockByNumber',
-    params: [blockNumber, transaction],
-  });
+) {
+  const response = await fetch(
+    `https://mainnet.infura.io/v3/${process.env.INFURA_KEY}`,
+    {
+      headers: infuraHeaders,
+      method: 'POST',
+      body: JSON.stringify({
+        jsonrpc: '2.0',
+        id: 1,
+        method: 'eth_getBlockByNumber',
+        params: [blockNumber, transaction],
+      }),
+    }
+  );
+
+  return response.json() as Promise<GetBlockByNumberRequest>;
+}
 
 // -------------------------------------------------------
 // -               API - COIN_MARKET
