@@ -15,7 +15,8 @@ const infuraHeaders = {
 
 export async function getBlockByNumber(
   blockNumber: Hex | 'latest',
-  transaction = false
+  transaction = false,
+  revalidate?: number
 ) {
   const response = await fetch(
     `https://mainnet.infura.io/v3/${process.env.INFURA_KEY}`,
@@ -28,6 +29,7 @@ export async function getBlockByNumber(
         method: 'eth_getBlockByNumber',
         params: [blockNumber, transaction],
       }),
+      next: { revalidate: revalidate ? revalidate : 3600 },
     }
   );
 
